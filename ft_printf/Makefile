@@ -3,6 +3,8 @@ NAME	= libftprintf.a
 SRCS	= ft_printf.c \
 	   	ft_numbers.c \
 		ft_words.c \
+		ft_atoi.c \
+		ft_strlen.c
 
 OBJS	= $(SRCS:.c=.o)
 

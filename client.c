@@ -11,9 +11,12 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
+#include <stdio.h>
 
 void	send_bit(int pid, char *str, size_t len)
 {
+	printf("sending bit");
+
 	int		shift;
 	size_t	i;
 
@@ -23,6 +26,8 @@ void	send_bit(int pid, char *str, size_t len)
 		shift = 0;
 		while (shift < 7)
 		{
+			printf("bit bit bit");
+			
 			if ((str[i] >> shift) & 1)
 				kill(pid, SIGUSR2);
 			else

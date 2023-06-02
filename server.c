@@ -16,6 +16,9 @@
 
 void bit_handler(int sig)
 {
+    //printf("i got signal");
+    //fflush(stdout);
+
     static int shift = 0;
     static char c;
 
@@ -29,7 +32,8 @@ void bit_handler(int sig)
     shift++;
     usleep(300);
     
-    printf("%d", c);
+    write(1, &c, 1);
+
 }
 
 
