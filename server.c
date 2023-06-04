@@ -16,26 +16,21 @@
 
 void bit_handler(int sig)
 {
-    //printf("i got signal");
-    //fflush(stdout);
+    static int bit_count = 0;
+    static unsigned char received_char = 0;
 
-    static int shift = 0;
-    static char c;
+    received_char = (received_char >> 1) | ((sig == SIGUSR2) << 7);
+    bit_count++;
 
-    if (shift == 7)
+    if (bit_count == 8)
     {
-        shift = 0;
-        c = 0;
+        bit_count = 0;
+        write(1, &received_char, 1);
+        received_char = 0;
     }
 
-    c = c << shift | sig;
-    shift++;
-    usleep(300);
-    
-    write(1, &c, 1);
-
+   
 }
-
 
 int main(void)
 {
@@ -44,5 +39,5 @@ int main(void)
     signal(SIGUSR1, bit_handler);
     while (1)
         pause();
-    return (0);
+    return 0;
 }
